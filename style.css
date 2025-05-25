@@ -1,0 +1,112 @@
+body { /* Body */
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+}
+
+.calculator { /* Calculator */
+    padding: 0px;
+    margin: 0px;
+    height: 600px;
+    width: 500px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: 10px;
+    border-radius: 10px;
+    flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.button, #display { /* Select all buttons and the display */
+    padding: 0px;
+    margin: 0px;
+    flex: 0 0 auto;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#display { /* Display */
+    width: 81%;
+    height: 30%;
+    background-color: rgba(22, 6, 32, 0.558);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 70px;
+}
+
+#clear { /* Clear */
+    width: 19%;
+    height: 30%;
+    background-color: rgb(232, 198, 45);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+}
+
+#one, #two, #three, #four, #five, #six, #seven, #eight, #nine{ /* All numbers */
+    width: 27%;
+    height: 17.5%;
+    background-color: rgb(191, 113, 45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+}
+
+#divide, #multiply, #subtract, #add { /* All operators */
+    width: 19%;
+    height: 17.5%;
+    background-color: rgb(232, 66, 66);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+
+#equal { /* Equal */
+    width: 81%;
+    height: 17.5%;
+    background-color: rgb(255, 153, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+}
+
+/* Style the button borders */
+
+#seven, #four, #one {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#multiply, #subtract, #divide {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#add {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#equal {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+/* END OF Style the button borders */
