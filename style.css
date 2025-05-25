@@ -1,10 +1,11 @@
 body { /* Body */
     display: flex;
     justify-content: center;
-    background-color: aliceblue;
+    background-color: antiquewhite;
+    user-select: none;
 }
 
-.calculator { /* Calculator */
+#calculator { /* Calculator */
     padding: 0px;
     margin: 0px;
     height: 600px;
@@ -89,7 +90,7 @@ body { /* Body */
 #period {
     width: 12%;
     height: 17.5%;
-    background-color: rgba(249, 220, 158, 0.924);
+    background-color: rgb(249, 220, 158);
     display: flex;
     justify-content: center;
     align-items: center;
