@@ -1,8 +1,10 @@
 body { /* Body */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     background-color: antiquewhite;
     user-select: none;
+    gap: 50px;
 }
 
 #calculator { /* Calculator */
@@ -16,9 +18,36 @@ body { /* Body */
     border-radius: 10px;
     flex: 0 0 auto;
     display: flex;
-    flex-wrap: wrap;
-    
+    flex-wrap: wrap;    
 }
+
+#guide {
+    box-sizing: border-box;
+    border-style: ridge;
+    border-radius: 10px;
+    border-width: 10px;
+    border-color: rgb(105, 96, 0);
+    background-color: rgb(255, 255, 168);
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: monospace;
+}
+
+h2 {
+    font-weight: 900;
+} 
+
+ul {
+    font-size: 25px;
+}
+
+p {
+    font-size: 20px;
+}
+
 
 .button, #display { /* Select all buttons and the display */
     padding: 0px;

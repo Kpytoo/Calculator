@@ -4,6 +4,12 @@ let operator = null; // The operator in the equation
 let display_number = document.querySelector("#display"); // The number that is displayed on the screen of the calculator
 let calculator = document.querySelector("#calculator"); // Selecting the calculator div
 
+// Checks whether a calculation happened.
+// Scenario fix: If a user does (5+3 = 8), and then immediately presses another number,
+// 4 for example, then "operand_one" would be updated to 84, instead of 4. This boolean
+// fixes this issue.
+let calculated = false; 
+
 // Addition function
 let add = (a,b) => {
     return a + b;
@@ -33,16 +39,35 @@ let divide = (a,b) => {
 let operate = (operandOne, operatorFunction, operandTwo) => {
     if(operator != null){
         operand_one = operatorFunction(operandOne, operandTwo);
-        if(operand_one > 9999999999 || operand_one < -999999999){
-            display_number.textContent = "Nuh Uh";
+        if(operand_one.toString().includes(".") == true){
+            let left_side_from_period = operand_one.toString().split(".")[0];
+            if(left_side_from_period.length > 9){ // If too large of a number (positive or negative)
+                display_number.textContent = "Nope";
+                operand_one = 0;
+                operand_two = 0;
+                operator = null;
+                calculated = false;
+            }
+            else{
+                display_number.textContent = parseFloat(operand_one.toFixed(9 - left_side_from_period.length));
+                operand_one = parseFloat(operand_one.toFixed(9 - left_side_from_period.length));
+                operand_two = 0;
+                operator = null;
+                calculated = true;
+            }
+        }
+        else if(operand_one.toString().length > 10){ // Checks if it is too large or too small
+            display_number.textContent = "Nope";
             operand_one = 0;
             operand_two = 0;
             operator = null;
+            calculated = false;
         }
         else {
             display_number.textContent = operand_one;
             operand_two = 0;
             operator = null;
+            calculated = true;
         }
         
     }
@@ -54,14 +79,15 @@ let operate = (operandOne, operatorFunction, operandTwo) => {
 // Also makes sure that the display doesn't overflow
 let addToDisplay = (button) => { 
     
-    if(display_number.textContent.toString().length > 9) { // if display is larger than 9 digits do nothing
+    if(display_number.textContent.toString().length > 10) { // if display is larger than 9 digits do nothing
     }
     else if(display_number.textContent == "x" || // if display contains any of these, clear it
             display_number.textContent == "+" || // and append the button that was pressed
             display_number.textContent == "-" ||
             display_number.textContent == "÷" ||
-            display_number.textContent == "Nuh Uh" ||
-            display_number.textContent == 0){
+            display_number.textContent == "Nope" ||
+            display_number.textContent == 0 || 
+            (calculated == true && operator == null)){     
         display_number.textContent = button;
     }
     else {
@@ -75,24 +101,24 @@ let addToDisplay = (button) => {
 // Takes in a number and decides if it is attributed to the first or second operand
 let setOperand = (number) => {
    if(operator == null){
-        if(operand_one.toString().length > 9){
-
+        if(operand_one.toString().length > 10){ // if number is too large, do nothing
+            console.log("HEREE!");
         }
         else {
+            if(calculated == true){ // Checks if calculation happened, reference variable description
+                operand_one = 0;
+                calculated = false;
+            }
             operand_one = Number(operand_one.toString() + number.toString());
         }
-        console.log("OP1: " + operand_one);
-        console.log(operator);
    }
    else {
-        if(operand_two.toString().length > 9){
+        if(operand_two.toString().length > 10){ // if number is too large, do nothing
 
         }
         else {
             operand_two = Number(operand_two.toString() + number.toString());
         }
-        console.log("OP2: " + operand_two);
-        console.log(operator);
    }
 };
 
@@ -106,6 +132,32 @@ let setOperator = (opr, stringOpr) => {
         display_number.textContent = stringOpr;
     }
 };
+
+
+// let setPeriod = () => {
+//     if(operator == null){
+//         // if number is too large or includes already a period, do nothing
+//         if(operand_one.toString().length > 9 || operand_one.toString().includes(".") == true){ 
+
+//         }
+//         else {
+//             operand_one = operand_one.toFixed(0);
+//             display_number.textContent += ".";
+//             console.log(operand_one);
+//         }
+
+//     }
+//     else {
+//         // if number is too large or includes already a period, do nothing
+//         if(operand_two.toString().length > 9 || operand_two.toString().includes(".") == true){ 
+
+//         }
+//         else {
+//             operand_two = operand_two.toFixed(1);
+//             display_number.textContent += ".";
+//         }
+//     }
+// };
 
 
 //Listening to the user's click inputs
@@ -157,7 +209,8 @@ calculator.addEventListener("click", (e) => {
             operate(operand_one, operator, operand_two);
             break;
         case "period":
-            console.log("PERIOD WAS PRESSED!");
+            alert("Period is not functional :(");
+            // setPeriod();
             break;
         case "add":
             setOperator(add, "+");
@@ -305,5 +358,7 @@ calculator.addEventListener("mouseout", (e) => {
     }
 });
 
-// Need to take care of period
 // Numbers overflow whenever they have a period (from division)
+// Need to take care of period
+
+
